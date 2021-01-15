@@ -6,9 +6,9 @@ namespace BattleShips
 {
     abstract class AbstractGamer
     {
-        public IStrategy strategy;
-        public IMap map;
-        public abstract int madeShot();
+        protected IStrategy strategy;
+        protected IMap map;
+        public abstract СellCoordinates madeShot();
         public abstract IMap DrawMap();
 
         public AbstractGamer(IStrategy strategykind, IMap mapkind)

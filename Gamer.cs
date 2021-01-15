@@ -7,7 +7,7 @@ namespace BattleShips
     class Gamer:AbstractGamer
     {
         public Gamer(IStrategy strategykind, IMap mapkind) : base(strategykind, mapkind) {}
-        public override int madeShot()
+        public override СellCoordinates madeShot()
         {
             return strategy.PickCell();
         }

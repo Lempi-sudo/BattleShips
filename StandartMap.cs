@@ -38,18 +38,36 @@ namespace BattleShips
 
         public void PrintMap()
         {
+            bool flag = true;
             for (int i = 0; i < fieldSize; i++)
             {
+                Console.Write("    "+i+"      ");
+                
+            }
+            Console.WriteLine();
+            for (int i = 0; i < fieldSize; i++)
+            {
+                Console.Write("-----------");
+
+            }
+            Console.WriteLine();
+            for (int i = 0; i < fieldSize; i++)
+            {
+                if (flag)
+                {
+                    Console.Write(i);
+                    flag = false;
+                }
+
                 for (int j = 0; j < fieldSize; j++)
                 {
-                    Console.WriteLine(cellsField[i, j].Status);
+                  
+                    Console.Write(" | "+cellsField[i, j].Status+" | ");
                 }
+                flag = true;
+                Console.WriteLine();
             }
-          
-            foreach(Cell cell in cellsField)
-            {
-                Console.WriteLine(cell.Status);
-            }
+        
         }
 
         public CellsKind getStatusCell(int horizontal, int vertical)

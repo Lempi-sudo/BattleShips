@@ -19,12 +19,12 @@ namespace BattleShips
 
             this.mapFirstGamer = firstGamer.DrawMap();
             this.mapSecondGamer = secondGamer.DrawMap();
+        }
+    }
+}
             
            
 
-        }
 
         
 
-    }
-}
