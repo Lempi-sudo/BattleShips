@@ -6,7 +6,7 @@ namespace BattleShips
 {
     class СleverStrategy : IStrategy
     {
-        public int PickCell()
+        public СellCoordinates PickCell()
         {
             throw new NotImplementedException();
         }

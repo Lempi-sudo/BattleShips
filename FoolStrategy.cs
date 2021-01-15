@@ -6,17 +6,53 @@ namespace BattleShips
 {
     class FoolStrategy : IStrategy
     {
-       
-
-        public int PickCell()
+        /// <summary>
+        /// Формируем список всех клеток allCells
+        /// из него случайным образом берем клеток и добавлеем в очередь
+        /// удалеем клеток из allCells
+        /// по завершению работы конструктора
+        /// создастся очередь клеток в случаном порядке 
+        /// </summary>
+        /// <param name="sizemap">  размер карты  </param>
+        public FoolStrategy(int sizemap)
         {
-            //Создание объекта для генерации чисел
-            Random rnd = new Random();
+            List<СellCoordinates> allCells = new List<СellCoordinates>();
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    allCells.Add(new СellCoordinates(i, j));
+                }
+            }
 
-            //Получить случайное число (в диапазоне от 0 до 10)
-            return  rnd.Next(0, 10);
+            Queue<СellCoordinates> randomСells = new Queue<СellCoordinates>();
 
-                       
+            Random rand = new Random();
+            int index;
+            while (allCells.Count != 0)
+            {
+                index = rand.Next(0, allCells.Count);
+
+                randomСells.Enqueue(allCells[index]);
+                allCells.RemoveAt(index);
+            }
         }
+
+        /// <summary>
+        /// метод выбора клеток 
+        /// </summary>
+        /// <returns> возвращает очереднею случайную клеток </returns>
+        public СellCoordinates PickCell()
+        { 
+            return randomСells.Dequeue();
+        }
+        /// <summary>
+        /// очередь случайных клеток
+        /// </summary>        
+        private Queue<СellCoordinates> randomСells;
     }
 }
+
+
+
+
