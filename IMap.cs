@@ -6,7 +6,7 @@ namespace BattleShips
 {
     interface IMap
     {
-        public void CreateMap();
+        public void generationMap();
         CellsKind getStatusCell(int horizontal , int vertical);
     }
 }

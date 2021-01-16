@@ -42,7 +42,7 @@ namespace BattleShips
         /// метод выбора клеток 
         /// </summary>
         /// <returns> возвращает очереднею случайную клеток </returns>
-        public СellCoordinates PickCell()
+        public СellCoordinates PickCell(int resultPastStep)
         { 
             return randomСells.Dequeue();
         }

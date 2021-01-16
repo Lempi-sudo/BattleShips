@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
+
+
+
+
 namespace BattleShips
 {
     class Game
@@ -20,8 +24,51 @@ namespace BattleShips
             this.mapFirstGamer = firstGamer.DrawMap();
             this.mapSecondGamer = secondGamer.DrawMap();
         }
+
+        public void letsStartGame()
+        {
+            stepFirsGamer();
+            stepSecondGamer();
+
+        }
+
+
+        private void stepFirsGamer()
+        {
+            CellsKind cellKind;
+            bool continuationMove = false;
+            do
+            {
+                СellCoordinates cell = firstGamer.madeShot();
+                cellKind = mapSecondGamer.getStatusCell(cell.Horizontal, cell.Vertical);
+                
+                switch(cellKind)
+                {
+                    case CellsKind.Ship: 
+                        continuationMove = true;
+                        firstGamer.receiveResultPastStep(1);
+                        break;
+                    case CellsKind.Water:
+                        firstGamer.receiveResultPastStep(0);
+                        break;
+                }
+
+            } while (continuationMove);
+        }
+
+
+            
+            
+            
+
+
+        private void stepSecondGamer()
+        {
+
+        }
     }
 }
+
             
            
 

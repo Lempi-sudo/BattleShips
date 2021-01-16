@@ -6,7 +6,7 @@ namespace BattleShips
 {
     interface IStrategy
     {
-        СellCoordinates PickCell();
+        СellCoordinates PickCell(int resultPastStep);
        
     }
 }
