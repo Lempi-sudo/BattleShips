@@ -8,7 +8,10 @@ namespace BattleShips
     enum CellsKind
     {
         Water,
-        Ship
+        Ship,
+        AreaAroundShip,
+        ShottedShip,
+        ShottedCell
     }
 
      
@@ -28,6 +31,15 @@ namespace BattleShips
             {
                 status = value;
             }
+        }
+
+        public static bool operator ==(Cell c1, Cell c2)
+        {
+            return c1.coordinate == c2.coordinate;
+        }
+        public static bool operator !=(Cell c1, Cell c2)
+        {
+            return c1.coordinate != c2.coordinate;
         }
 
         public Cell(int horizontal, int vertical)
