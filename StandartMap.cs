@@ -42,7 +42,7 @@ namespace BattleShips
             Random rand = new Random();
             return rand.Next(0, maxindex);
         }
-        private void ShiftCellAroundShip(СellCoordinates center,int shifthorizontally , int shiftvertical)
+        private void ShiftCellAroundShip(СellCoordinates center, int shifthorizontally, int shiftvertical)
         {
             int positionHorintal = center.Horizontal + shifthorizontally;
             int positionVertical = center.Vertical + shiftvertical;
@@ -62,9 +62,9 @@ namespace BattleShips
             int right = 1;
             int left = -1;
             int noShift = 0;
-            for (int i = 0; i <ship.SizeShip; i++)
+            for (int i = 0; i < ship.SizeShip; i++)
             {
-                
+
                 ShiftCellAroundShip(ship.ShipCoordinates[i], up, noShift);
                 ShiftCellAroundShip(ship.ShipCoordinates[i], down, noShift);
                 ShiftCellAroundShip(ship.ShipCoordinates[i], noShift, right);
@@ -77,7 +77,7 @@ namespace BattleShips
             }
 
         }
-        private СellCoordinates RandomCell(List<СellCoordinates> availableCells , int index)
+        private СellCoordinates RandomCell(List<СellCoordinates> availableCells, int index)
         {
             return availableCells[index];
         }
@@ -88,21 +88,21 @@ namespace BattleShips
                 cellsField[ship.ShipCoordinates[i].Horizontal, ship.ShipCoordinates[i].Vertical].Status = CellsKind.Ship;
             }
         }
-        private  List<СellCoordinates> NeighborsCells(СellCoordinates centership ,int sizeship, int shifthorizontally, int shiftvertical)
+        private List<СellCoordinates> NeighborsCells(СellCoordinates centership, int sizeship, int shifthorizontally, int shiftvertical)
         {
-            List < СellCoordinates > neighborsCells=new List<СellCoordinates>();
+            List<СellCoordinates> neighborsCells = new List<СellCoordinates>();
             int horNeighbors = 0;
             int verNeighbors = 0;
-           
-            for (int i=1; i<sizeship;i++)
+
+            for (int i = 1; i < sizeship; i++)
             {
                 horNeighbors = centership.Horizontal + shifthorizontally * i;
                 verNeighbors = centership.Vertical + shiftvertical * i;
 
                 if (horNeighbors > 9 || horNeighbors < 0 || verNeighbors < 0 || verNeighbors > 9) break;
-                if (cellsField[centership.Horizontal+shifthorizontally*i, centership.Vertical + shiftvertical * i].Status==CellsKind.Water)
+                if (cellsField[centership.Horizontal + shifthorizontally * i, centership.Vertical + shiftvertical * i].Status == CellsKind.Water)
                 {
-                    neighborsCells.Add(new СellCoordinates(centership.Horizontal  + shifthorizontally * i, centership.Vertical + shiftvertical * i));
+                    neighborsCells.Add(new СellCoordinates(centership.Horizontal + shifthorizontally * i, centership.Vertical + shiftvertical * i));
                 }
                 else
                 {
@@ -112,15 +112,15 @@ namespace BattleShips
 
             return neighborsCells;
         }
-        private int LenghtNeighbors(List<СellCoordinates> onehand,  List<СellCoordinates> otherhand)
+        private int LenghtNeighbors(List<СellCoordinates> onehand, List<СellCoordinates> otherhand)
         {
             return onehand.Count + otherhand.Count;
         }
         private Ship CreateSomeDeckShipOnMap(int sizeship, СellCoordinates centership)
         {
-            
 
-            List < СellCoordinates> coordinatesShip= new List<СellCoordinates>();
+
+            List<СellCoordinates> coordinatesShip = new List<СellCoordinates>();
             coordinatesShip.Add(centership);
 
             List<СellCoordinates> UpNeighborsCells = NeighborsCells(centership, sizeship, -1, 0);
@@ -131,9 +131,9 @@ namespace BattleShips
             int verticalNeighbors = LenghtNeighbors(UpNeighborsCells, DownNeighborsCells);
             int horizontalNeighbors = LenghtNeighbors(RightNeighborsCells, LeftNeighborsCells);
             Random rand = new Random();
-            if (verticalNeighbors>=sizeship-1 && horizontalNeighbors>=sizeship-1)
+            if (verticalNeighbors >= sizeship - 1 && horizontalNeighbors >= sizeship - 1)
             {
-             
+
                 int key = rand.Next(0, 1);
                 switch (key)
                 {
@@ -149,10 +149,10 @@ namespace BattleShips
                         break;
                 }
             }
-            else if(verticalNeighbors >= sizeship - 1)
+            else if (verticalNeighbors >= sizeship - 1)
             {
                 AddNeighborsCellsToCenter(sizeship, coordinatesShip, UpNeighborsCells, DownNeighborsCells);
-               
+
             }
             else if (horizontalNeighbors >= sizeship - 1)
             {
@@ -161,7 +161,7 @@ namespace BattleShips
             Ship ship = new Ship(coordinatesShip);
             return ship;
         }
-        private void CreateShipsOnMap(int [] arraysizeships)
+        private void CreateShipsOnMap(int[] arraysizeships)
         {
             foreach (int i in arraysizeships)
             {
@@ -176,7 +176,7 @@ namespace BattleShips
                 //shipcoordinates.Add(availableCells[index]);
 
                 Ship ship = CreateSomeDeckShipOnMap(i, RandomCell(availableCells, index));
-              
+
                 AllShips.AddShip(ship);
 
                 //закрасил карту кораблем 
@@ -185,17 +185,17 @@ namespace BattleShips
                 //закрасил карту вокруг корабля
                 DrawСellsAroundShip(ship);
 
-               
+
             }
 
         }
         public void generationMap()
         {
             FillWater();
-            int[] allSizeShips = new int[]{ 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
+            int[] allSizeShips = new int[] { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
 
             CreateShipsOnMap(allSizeShips);
-            
+
 
         }
         public void Print()
@@ -209,42 +209,15 @@ namespace BattleShips
             }
             Console.WriteLine();
             Console.WriteLine();
-       
+
             for (int i = 0; i < fieldSize; i++)
             {
                 if (flag)
                 {
-                    Console.Write(i+"  ");
+                    Console.Write(i + "  ");
                     flag = false;
                 }
 
-                for (int j = 0; j < fieldSize; j++)
-                {
-                    switch(cellsField[i,j].Status)
-                    {
-                        case CellsKind.Water:
-                            Console.Write(" 0 ");
-                            break;
-                        case CellsKind.Ship:
-                            Console.Write(" A ");
-                            break;
-                        case CellsKind.AreaAroundShip:
-                            Console.Write(" X ");
-                            break;
-                    }
-                  
-                }
-                flag = true;
-                Console.WriteLine();
-            }
-
-        }
-
-        public void Print12()
-        {
-            for (int i = 0; i < fieldSize; i++)
-            {
-               
                 for (int j = 0; j < fieldSize; j++)
                 {
                     switch (cellsField[i, j].Status)
@@ -261,25 +234,49 @@ namespace BattleShips
                     }
 
                 }
-                
+                flag = true;
+                Console.WriteLine();
+            }
+
+        }
+
+        public void Print12()
+        {
+            for (int i = 0; i < fieldSize; i++)
+            {
+
+                for (int j = 0; j < fieldSize; j++)
+                {
+                    switch (cellsField[i, j].Status)
+                    {
+                        case CellsKind.Water:
+                            Console.Write(" 0 ");
+                            break;
+                        case CellsKind.Ship:
+                            Console.Write(" A ");
+                            break;
+                        case CellsKind.AreaAroundShip:
+                            Console.Write(" X ");
+                            break;
+                    }
+
+                }
+
                 Console.WriteLine();
             }
         }
-        public CellsKind getStatusCell(int horizontal, int vertical)
-        {
-            return cellsField[horizontal, vertical].Status;
-        }
-        private void AddNeighborsCellsToCenter(int sizeship , List<СellCoordinates> coordinatesShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
+
+        private void AddNeighborsCellsToCenter(int sizeship, List<СellCoordinates> coordinatesShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
         {
             int i = 0;
-            while(true)
+            while (true)
             {
                 if (coordinatesShip.Count == sizeship)
                 {
                     break;
                 }
 
-                if (oneHandNeighborsCells.Count!=0)
+                if (oneHandNeighborsCells.Count != 0)
                 {
                     coordinatesShip.Add(oneHandNeighborsCells[0]);
                     oneHandNeighborsCells.RemoveAt(0);
@@ -293,13 +290,26 @@ namespace BattleShips
                     coordinatesShip.Add(otherHandNeighborsCells[0]);
                     otherHandNeighborsCells.RemoveAt(0);
                 }
-                          
+
             }
+        }
+
+        public ResultShot getResultShot(int horizontal, int vertical)
+        {
+            if (cellsField[horizontal, vertical].Status != CellsKind.Ship)
+            {
+                return ResultShot.Miss;
+            }
+            else
+            {
+                return ResultShot.Damage;
+            }
+           
         }
 
 
 
-               
+
         /// игровое поле 
         /// </summary>
         private Cell[,] cellsField;
@@ -310,7 +320,7 @@ namespace BattleShips
         /// </summary>
         private int fieldSize=10;
 
-        FleetShips AllShips;
+        private FleetShips AllShips;
 
     }
 }
@@ -362,6 +372,5 @@ namespace BattleShips
 
 
 
-        /// <summary>
 
 

@@ -6,7 +6,9 @@ namespace BattleShips
 {
     class Ship
     {
-        private List<СellCoordinates> shipcoordinates;
+        public List<СellCoordinates> shipcoordinates;
+        public int sizeship;
+        
         public List<СellCoordinates> ShipCoordinates 
         {
             get
@@ -15,8 +17,6 @@ namespace BattleShips
             }
             
         }
-
-        private int sizeship;
         public int SizeShip
         {
             get
@@ -24,10 +24,6 @@ namespace BattleShips
                 return sizeship;
             }
         }
-            
-            
-
-
         public Ship(int sizeship)
         {
             this.sizeship = sizeship;
@@ -41,3 +37,9 @@ namespace BattleShips
             
     }
 }
+
+        
+            
+            
+
+

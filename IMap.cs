@@ -7,6 +7,6 @@ namespace BattleShips
     interface IMap
     {
         public void generationMap();
-        CellsKind getStatusCell(int horizontal , int vertical);
+        ResultShot getResultShot(int horizontal , int vertical);
     }
 }

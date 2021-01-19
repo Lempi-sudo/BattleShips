@@ -6,7 +6,7 @@ namespace BattleShips
 {
     class FleetShips
     {
-        private List<Ship> shipslist;
+        public List<Ship> shipslist;
         public FleetShips()
         {
             shipslist = new List<Ship>();
