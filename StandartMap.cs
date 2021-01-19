@@ -189,7 +189,7 @@ namespace BattleShips
             }
 
         }
-        public void generationMap()
+        public void GenerationMap()
         {
             FillWater();
             int[] allSizeShips = new int[] { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
@@ -294,7 +294,7 @@ namespace BattleShips
             }
         }
 
-        public ResultShot getResultShot(int horizontal, int vertical)
+        public ResultShot GetResultShot(int horizontal, int vertical)
         {
             if (cellsField[horizontal, vertical].Status != CellsKind.Ship)
             {
@@ -305,6 +305,16 @@ namespace BattleShips
                 return ResultShot.Damage;
             }
            
+        }
+
+        public int CountShipOnMap()
+        {
+            return AllShips.CountShip();
+        }
+
+        public int SizeMap()
+        {
+            return fieldSize;
         }
 
 

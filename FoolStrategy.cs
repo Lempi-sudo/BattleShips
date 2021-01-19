@@ -25,7 +25,7 @@ namespace BattleShips
                 }
             }
 
-            Queue<СellCoordinates> randomСells = new Queue<СellCoordinates>();
+            this.randomСells = new Queue<СellCoordinates>();
 
             Random rand = new Random();
             int index;
@@ -33,7 +33,7 @@ namespace BattleShips
             {
                 index = rand.Next(0, allCells.Count);
 
-                randomСells.Enqueue(allCells[index]);
+                this.randomСells.Enqueue(allCells[index]);
                 allCells.RemoveAt(index);
             }
         }
@@ -42,7 +42,7 @@ namespace BattleShips
         /// метод выбора клеток 
         /// </summary>
         /// <returns> возвращает очереднею случайную клеток </returns>
-        public СellCoordinates PickCell(int resultPastStep)
+        public СellCoordinates PickCell(ResultShot resultcurrentStep)
         { 
             return randomСells.Dequeue();
         }

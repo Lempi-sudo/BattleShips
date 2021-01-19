@@ -6,7 +6,12 @@ namespace BattleShips
 {
     interface IMap
     {
-        public void generationMap();
-        ResultShot getResultShot(int horizontal , int vertical);
+        void GenerationMap();
+        ResultShot GetResultShot(int horizontal , int vertical);
+
+        int CountShipOnMap();
+        int SizeMap();
+
+
     }
 }

@@ -7,6 +7,11 @@ namespace BattleShips
     class FleetShips
     {
         public List<Ship> shipslist;
+
+        public int CountShip()
+        {
+            return shipslist.Count;
+        }
         public FleetShips()
         {
             shipslist = new List<Ship>();

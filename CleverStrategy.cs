@@ -6,7 +6,7 @@ namespace BattleShips
 {
     class СleverStrategy : IStrategy
     {
-        public СellCoordinates PickCell(int resultPastStep)
+        public СellCoordinates PickCell(ResultShot resultCurrentStep)
         {
             setStatus(resultPastStep);
             throw new NotImplementedException();

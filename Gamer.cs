@@ -12,29 +12,29 @@ namespace BattleShips
         }
         public override СellCoordinates madeShot()
         {
-            return strategy.PickCell(this.statusPastStep);
+            return strategy.PickCell(this.statusCurrentStep);
 
         }
 
-       
+        public int CountShips()
+        {
+            return this.map.CountShipOnMap();
+        }
 
         public override IMap DrawMap()
         {
-            map.generationMap();
+            map.GenerationMap();
             return map;
         }
 
-        //public override void receiveResultPastStep(int statusPastStep)
-        //{
-        //    base.statusPastStep = statusPastStep;
-        //}
-
-        /// <summary>
-        /// статус прошлого шага
-        /// </summary>
-        
+        public override ResultShot AnswerToShotEnemy(int horizontal, int vertical)
+        {
+            throw new NotImplementedException();
+        }
 
        
+
+
     }
 }
         
