@@ -9,6 +9,8 @@ namespace BattleShips
         protected IStrategy strategy;
         protected IMap map;
         protected ResultShot statusCurrentStep;
+
+
         public abstract СellCoordinates madeShot();
         public abstract IMap DrawMap();
         public virtual void receiveResultCurrentStep(ResultShot statuscurrentstep)
@@ -20,6 +22,7 @@ namespace BattleShips
 
         public AbstractGamer(IStrategy strategykind, IMap mapkind)
         {
+            
             this.strategy = strategykind;
             this.map = mapkind;
             this.statusCurrentStep = ResultShot.Miss;

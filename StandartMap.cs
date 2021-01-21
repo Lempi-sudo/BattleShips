@@ -268,7 +268,7 @@ namespace BattleShips
 
         private void AddNeighborsCellsToCenter(int sizeship, List<СellCoordinates> coordinatesShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
         {
-            int i = 0;
+            
             while (true)
             {
                 if (coordinatesShip.Count == sizeship)
@@ -302,10 +302,11 @@ namespace BattleShips
             }
             else
             {
-                return ResultShot.Damage;
+                return AllShips.ShotOnShips(horizontal, vertical);
             }
-           
         }
+           
+                
 
         public int CountShipOnMap()
         {

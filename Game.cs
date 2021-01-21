@@ -19,6 +19,8 @@ namespace BattleShips
         private IMap mapFirstGamer;
         private IMap mapSecondGamer;
 
+        //private Logger logger;
+
         public Game(AbstractGamer firstgamer, AbstractGamer secondgamer)
         {
             this.firstGamer = firstgamer;
@@ -69,7 +71,7 @@ namespace BattleShips
 
                 stepSecondGamer();
 
-            } while (isGameOver());
+            } while (!isGameOver());
 
 
 
@@ -87,8 +89,11 @@ namespace BattleShips
                 cell = firstGamer.madeShot();
                 resultshot = mapSecondGamer.GetResultShot(cell.Horizontal, cell.Vertical);
                 firstGamer.receiveResultCurrentStep(resultshot);
-                if (resultshot == ResultShot.Kill) countShipsSecondGr -= 1;
-           
+                if (resultshot == ResultShot.Kill)
+                {
+                    countShipsSecondGr--;
+                    if (isGameOver()) break;
+                }
             } while (isCountinuesStep(resultshot));
         }
 
@@ -107,7 +112,11 @@ namespace BattleShips
                 cell = secondGamer.madeShot();
                 resultshot = mapFirstGamer.GetResultShot(cell.Horizontal, cell.Vertical);
                 secondGamer.receiveResultCurrentStep(resultshot);
-                if (resultshot == ResultShot.Kill) countShipsFirsrGr -= 1;
+                if (resultshot == ResultShot.Kill)
+                {
+                    countShipsFirsrGr--;
+                    if (isGameOver()) break;
+                }
 
             } while (isCountinuesStep(resultshot));
 

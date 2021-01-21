@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace BattleShips
 {
@@ -7,13 +9,27 @@ namespace BattleShips
     {
         static void Main(string[] args)
         {
+            using (var sw = new StreamWriter("1.txt", true, Encoding.UTF8)) 
+            {
+                sw.Write("1");
+                sw.Write("2");
+                sw.Write("3");
+                sw.WriteLine();
 
-            AbstractGamer g1 = new Gamer(new FoolStrategy(10), new StandartMap());
-            AbstractGamer g2 = new Gamer(new FoolStrategy(10), new StandartMap());
 
-            Game game = new Game(g1, g2);
+            }
+            using (var sr=new StreamReader("1.txt"))
+            {
+                var text = sr.ReadToEnd();
+                Console.Write(text);
+            }
 
-            game.letsStartGame();
+            //AbstractGamer g1 = new Gamer(new СleverStrategy(10,4), new StandartMap());
+            //AbstractGamer g2 = new Gamer(new СleverStrategy(10, 4), new StandartMap());
+
+            //Game game = new Game(g1, g2);
+
+            //game.letsStartGame();
 
 
 

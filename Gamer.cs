@@ -16,11 +16,7 @@ namespace BattleShips
 
         }
 
-        public int CountShips()
-        {
-            return this.map.CountShipOnMap();
-        }
-
+        
         public override IMap DrawMap()
         {
             map.GenerationMap();

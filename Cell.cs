@@ -41,7 +41,23 @@ namespace BattleShips
         {
             return c1.coordinate != c2.coordinate;
         }
-
+        public override bool Equals(Object obj)
+        {
+            //Check for null and compare run-time types.
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Cell p = (Cell)obj;
+                return (coordinate.Horizontal == p.coordinate.Horizontal) && (coordinate.Vertical == p.coordinate.Vertical);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return (coordinate.Horizontal << 2) ^ coordinate.Vertical;
+        }
         public Cell(int horizontal, int vertical)
         {
             coordinate = new СellCoordinates(horizontal, vertical);
