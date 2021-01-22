@@ -9,27 +9,14 @@ namespace BattleShips
     {
         static void Main(string[] args)
         {
-            using (var sw = new StreamWriter("1.txt", true, Encoding.UTF8)) 
-            {
-                sw.Write("1");
-                sw.Write("2");
-                sw.Write("3");
-                sw.WriteLine();
 
 
-            }
-            using (var sr=new StreamReader("1.txt"))
-            {
-                var text = sr.ReadToEnd();
-                Console.Write(text);
-            }
+            AbstractGamer g1 = new Gamer(new СleverStrategy(10, 4), new StandartMap());
+            AbstractGamer g2 = new Gamer(new СleverStrategy(10, 4), new StandartMap());
 
-            //AbstractGamer g1 = new Gamer(new СleverStrategy(10,4), new StandartMap());
-            //AbstractGamer g2 = new Gamer(new СleverStrategy(10, 4), new StandartMap());
+            Game game = new Game(g1, g2,"1.txt");
 
-            //Game game = new Game(g1, g2);
-
-            //game.letsStartGame();
+            game.letsStartGame();
 
 
 

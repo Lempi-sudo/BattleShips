@@ -182,43 +182,12 @@ namespace BattleShips
         {
             hitShipCells.Add(this.lastSelectedCell);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private СellCoordinates PopFront(List<СellCoordinates> list)
         {
             СellCoordinates cell = list[0];
             list.RemoveAt(0);
             return cell;
         }
-
-
-
 
         public СellCoordinates PickCell(ResultShot resultPastStep)
         {
@@ -233,7 +202,7 @@ namespace BattleShips
                 СellCoordinates pickcell = randomCell();
                 deleteAvailableCell(pickcell);
                 this.lastSelectedCell = pickcell;
-                return pickcell; 
+                return pickcell;
             }
             else
             {
@@ -247,16 +216,9 @@ namespace BattleShips
                 this.lastSelectedCell = pickcell;
                 deleteAvailableCell(pickcell);
                 return this.lastSelectedCell;
-               
-            }      
+
+            }
         }
-          
-  
-            
-            
-
-               
-
 
 
         /// <summary>
@@ -302,6 +264,47 @@ namespace BattleShips
 
     }
 }
+       
+        
+
+
+
+
+
+
+
+
+
+          
+  
+            
+            
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
 
 

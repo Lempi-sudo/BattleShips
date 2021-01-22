@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-
-
-
-
-namespace BattleShips
+﻿namespace BattleShips
 {
     class Game
     {
@@ -19,9 +11,9 @@ namespace BattleShips
         private IMap mapFirstGamer;
         private IMap mapSecondGamer;
 
-        //private Logger logger;
+        private Logger logger;
 
-        public Game(AbstractGamer firstgamer, AbstractGamer secondgamer)
+        public Game(AbstractGamer firstgamer, AbstractGamer secondgamer,string filename)
         {
             this.firstGamer = firstgamer;
             this.secondGamer = secondgamer;
@@ -31,6 +23,8 @@ namespace BattleShips
 
             this.countShipsFirsrGr = mapFirstGamer.CountShipOnMap();
             this.countShipsSecondGr = mapSecondGamer.CountShipOnMap();
+
+            this.logger = new Logger(filename);
         
 
            
@@ -38,14 +32,14 @@ namespace BattleShips
 
         private bool isGameOver()
         {
-            if (countShipsFirsrGr == 0 && countShipsSecondGr == 0) return true;
+            if (countShipsFirsrGr == 0 || countShipsSecondGr == 0) return true;
             return false;
         }
 
         private bool isCountinuesStep(ResultShot resultshot)
         {
              
-            if (( resultshot == ResultShot.Kill || resultshot == ResultShot.Damage ) && !isGameOver()) //заменить как в методе letsstart
+            if (( resultshot == ResultShot.Kill || resultshot == ResultShot.Damage ) && !isGameOver()) 
             {
                 return true;
             }
@@ -53,7 +47,18 @@ namespace BattleShips
         }
             
 
-
+        private string WhoIsWin()
+        {
+            if(countShipsFirsrGr==0)
+            {
+                return "Second Gamer";
+            }
+            if (countShipsSecondGr == 0)
+            {
+                return "First Gamer";
+            }
+            return "";
+        }
 
 
         
@@ -63,7 +68,7 @@ namespace BattleShips
         public void letsStartGame()
         {
             
-            do // надо изменить это плохо но работает
+            do 
             {
                 stepFirsGamer();
 
@@ -72,7 +77,7 @@ namespace BattleShips
                 stepSecondGamer();
 
             } while (!isGameOver());
-
+            logger.WriteWinner(WhoIsWin());
 
 
         }
@@ -83,12 +88,14 @@ namespace BattleShips
 
             ResultShot resultshot;
             СellCoordinates cell;
-          
+            logger.WriteGamer("First Gamer");
             do
             {
                 cell = firstGamer.madeShot();
                 resultshot = mapSecondGamer.GetResultShot(cell.Horizontal, cell.Vertical);
+                logger.WriteShot(cell, resultshot);
                 firstGamer.receiveResultCurrentStep(resultshot);
+
                 if (resultshot == ResultShot.Kill)
                 {
                     countShipsSecondGr--;
@@ -106,11 +113,12 @@ namespace BattleShips
         {
             ResultShot resultshot;
             СellCoordinates cell;
-
+            logger.WriteGamer("Second Gamer");
             do
             {
                 cell = secondGamer.madeShot();
                 resultshot = mapFirstGamer.GetResultShot(cell.Horizontal, cell.Vertical);
+                logger.WriteShot(cell, resultshot);
                 secondGamer.receiveResultCurrentStep(resultshot);
                 if (resultshot == ResultShot.Kill)
                 {
