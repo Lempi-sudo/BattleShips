@@ -5,6 +5,10 @@ using System.Text;
 
 namespace BattleShips
 {
+    /// <summary>
+    /// Данный класс не используется так как записывать в файл каждый ход по отдельности оказалось 
+    /// слишком долго . используется класс SuperLogger
+    /// </summary>
     class Logger
     {
         /// <summary>
@@ -18,6 +22,11 @@ namespace BattleShips
              
         }
 
+        /// <summary>
+        /// метод записывает в файл ход игрока 
+        /// </summary>
+        /// <param name="cell">координаты клетки в которую стреляли</param>
+        /// <param name="resultshot">результат выстрела </param>
         public void  WriteShot(СellCoordinates cell, ResultShot resultshot)
         {
             using(var sw = new StreamWriter(fileName, true, Encoding.UTF8))
@@ -42,6 +51,7 @@ namespace BattleShips
 
           
         }
+
         public void WriteGamer(string strnamegamer)
         {
             using (var sw = new StreamWriter(fileName, true, Encoding.UTF8))
