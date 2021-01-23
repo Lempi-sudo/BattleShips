@@ -8,13 +8,13 @@ namespace BattleShips
     {
         /// <summary>
         /// Формируем список всех клеток allCells
-        /// из него случайным образом берем клеток и добавлеем в очередь
-        /// удалеем клеток из allCells
+        /// из него случайным образом берем клетку и добавлеем в очередь
+        /// удалеем клетку из allCells
         /// по завершению работы конструктора
         /// создастся очередь клеток в случаном порядке 
         /// </summary>
         /// <param name="sizemap">  размер карты  </param>
-        public FoolStrategy(int sizemap)
+        public FoolStrategy(int sizemap=10)
         {
             List<СellCoordinates> allCells = new List<СellCoordinates>();
             for (int i = 0; i < 10; i++)
@@ -41,11 +41,12 @@ namespace BattleShips
         /// <summary>
         /// метод выбора клеток 
         /// </summary>
-        /// <returns> возвращает очереднею случайную клеток </returns>
+        /// <returns> возвращает очередную случайную клетку </returns>
         public СellCoordinates PickCell(ResultShot resultcurrentStep)
         { 
             return randomСells.Dequeue();
         }
+
         /// <summary>
         /// очередь случайных клеток
         /// </summary>        

@@ -11,7 +11,7 @@
         private IMap mapFirstGamer;
         private IMap mapSecondGamer;
 
-        private Logger logger;
+        private SuperLogger logger;
 
         public Game(AbstractGamer firstgamer, AbstractGamer secondgamer,string filename)
         {
@@ -24,7 +24,7 @@
             this.countShipsFirsrGr = mapFirstGamer.CountShipOnMap();
             this.countShipsSecondGr = mapSecondGamer.CountShipOnMap();
 
-            this.logger = new Logger(filename);
+            this.logger = new SuperLogger(filename);
         
 
            
@@ -47,7 +47,7 @@
         }
             
 
-        private string WhoIsWin()
+        private string stringWhoIsWin()
         {
             if(countShipsFirsrGr==0)
             {
@@ -60,8 +60,21 @@
             return "";
         }
 
+        public int numberWhoIsWin()
+        {
+            if (countShipsFirsrGr == 0)
+            {
+                return 2;
+            }
+            if (countShipsSecondGr == 0)
+            {
+                return 1;
+            }
+            return 0;
+        }
 
-        
+
+
 
 
 
@@ -77,8 +90,8 @@
                 stepSecondGamer();
 
             } while (!isGameOver());
-            logger.WriteWinner(WhoIsWin());
-
+            logger.WriteWinner(stringWhoIsWin());
+            logger.WriteInFile();
 
         }
 

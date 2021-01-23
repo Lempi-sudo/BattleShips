@@ -6,7 +6,7 @@ namespace BattleShips
 {
     class FleetShips
     {
-        public List<Ship> shipslist;
+        private List<Ship> shipslist;
 
         public ResultShot ShotOnShips(int horizontal, int vertical)
         {

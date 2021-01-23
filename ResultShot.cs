@@ -6,6 +6,7 @@ namespace BattleShips
 {
     enum ResultShot
     {
+        
         Miss,
         Damage,
         Kill,

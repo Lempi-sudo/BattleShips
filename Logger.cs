@@ -7,10 +7,15 @@ namespace BattleShips
 {
     class Logger
     {
-        string fileName;
+        /// <summary>
+        /// имя файла для записи игры 
+        /// </summary>
+        private string fileName;
+        
         public Logger(string filename)
         {
             this.fileName = filename;
+             
         }
 
         public void  WriteShot(СellCoordinates cell, ResultShot resultshot)

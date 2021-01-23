@@ -6,9 +6,16 @@ namespace BattleShips
 {
     class Ship
     {
-        public List<СellCoordinates> shipcoordinates;
-        public int sizeship;
-        
+        private List<СellCoordinates> shipcoordinates;
+        private int sizeship;
+        public int SizeShip
+        {
+            get
+            {
+                return sizeship;
+            }
+        }
+
         public ResultShot ShotOnShip(int horizontal, int vertical)
         {
             СellCoordinates shotcell = new СellCoordinates(horizontal, vertical);
@@ -42,26 +49,16 @@ namespace BattleShips
             }
             
         }
-        public int SizeShip
-        {
-            get
-            {
-                return sizeship;
-            }
-        }
-        public Ship(int sizeship)
-        {
-            this.sizeship = sizeship;
-            shipcoordinates = new List<СellCoordinates>();
-        }
         public Ship(List<СellCoordinates> shipcoordinates)
         {
             this.sizeship = shipcoordinates.Count;
             this.shipcoordinates = shipcoordinates;
         }
-            
     }
 }
+       
+      
+            
 
         
             

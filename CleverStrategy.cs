@@ -6,7 +6,7 @@ namespace BattleShips
 {
     class СleverStrategy : IStrategy
     {
-        public СleverStrategy(int mapsize , int maxlenghtship)
+        public СleverStrategy(int mapsize=10 , int maxlenghtship=4)
         {
             this.maxLenghtShip = maxlenghtship;
             this.CellsForKillsShip=new List<СellCoordinates>();
@@ -75,7 +75,7 @@ namespace BattleShips
                 else right = false;
             }
         }
-        private void deleteDirectionAttack() // большой метод разбить на мелкие
+        private void deleteDirectionAttack() 
         {
             int deltaH = this.lastSelectedCell.Horizontal - this.hitShipCells[0].Horizontal;
             int deltaV = this.lastSelectedCell.Vertical - this.hitShipCells[0].Vertical;

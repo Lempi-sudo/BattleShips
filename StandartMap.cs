@@ -198,73 +198,7 @@ namespace BattleShips
 
 
         }
-        public void Print()
-        {
-            bool flag = true;
-            Console.Write("  ");
-            for (int i = 0; i < fieldSize; i++)
-            {
-                Console.Write(" " + i + " ");
-
-            }
-            Console.WriteLine();
-            Console.WriteLine();
-
-            for (int i = 0; i < fieldSize; i++)
-            {
-                if (flag)
-                {
-                    Console.Write(i + "  ");
-                    flag = false;
-                }
-
-                for (int j = 0; j < fieldSize; j++)
-                {
-                    switch (cellsField[i, j].Status)
-                    {
-                        case CellsKind.Water:
-                            Console.Write(" 0 ");
-                            break;
-                        case CellsKind.Ship:
-                            Console.Write(" A ");
-                            break;
-                        case CellsKind.AreaAroundShip:
-                            Console.Write(" X ");
-                            break;
-                    }
-
-                }
-                flag = true;
-                Console.WriteLine();
-            }
-
-        }
-
-        public void Print12()
-        {
-            for (int i = 0; i < fieldSize; i++)
-            {
-
-                for (int j = 0; j < fieldSize; j++)
-                {
-                    switch (cellsField[i, j].Status)
-                    {
-                        case CellsKind.Water:
-                            Console.Write(" 0 ");
-                            break;
-                        case CellsKind.Ship:
-                            Console.Write(" A ");
-                            break;
-                        case CellsKind.AreaAroundShip:
-                            Console.Write(" X ");
-                            break;
-                    }
-
-                }
-
-                Console.WriteLine();
-            }
-        }
+       
 
         private void AddNeighborsCellsToCenter(int sizeship, List<СellCoordinates> coordinatesShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
         {
@@ -321,7 +255,10 @@ namespace BattleShips
 
 
 
-        /// игровое поле 
+        
+
+        /// <summary>
+        ///  
         /// </summary>
         private Cell[,] cellsField;
 
@@ -331,6 +268,9 @@ namespace BattleShips
         /// </summary>
         private int fieldSize=10;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private FleetShips AllShips;
 
     }
