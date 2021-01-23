@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BattleShips
 {
+
     abstract class AbstractGamer
     {
         protected IStrategy strategy;

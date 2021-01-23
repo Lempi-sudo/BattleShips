@@ -104,7 +104,9 @@
             logger.WriteGamer("First Gamer");
             do
             {
+                //игрок делает выстрел cell- хранит координаты клетки 
                 cell = firstGamer.madeShot();
+                // результат выстрела 
                 resultshot = mapSecondGamer.GetResultShot(cell.Horizontal, cell.Vertical);
                 logger.WriteShot(cell, resultshot);
                 firstGamer.receiveResultCurrentStep(resultshot);
