@@ -30,12 +30,24 @@
            
         }
 
+        /// <summary>
+        /// проверка на конец игры 
+        /// </summary>
+        /// <returns>true - конец игры   false- партия продолжается </returns>
         private bool isGameOver()
         {
             if (countShipsFirsrGr == 0 || countShipsSecondGr == 0) return true;
             return false;
         }
 
+        /// <summary>
+        /// проверка на продолжение хода игрока 
+        /// </summary>
+        /// <param name="resultshot"></param>
+        /// <returns>
+        /// true - если ход продолжается
+        /// false- право хода переходит к следующему игроку 
+        /// </returns>
         private bool isCountinuesStep(ResultShot resultshot)
         {
              
@@ -46,7 +58,10 @@
             return false;
         }
             
-
+        /// <summary>
+        /// метод для записи в файл победителя в партии
+        /// </summary>
+        /// <returns></returns>
         private string stringWhoIsWin()
         {
             if(countShipsFirsrGr==0)
@@ -60,6 +75,10 @@
             return "";
         }
 
+        /// <summary>
+        /// метод для подсчета количества побед в турнире 
+        /// </summary>
+        /// <returns>возвращает номер победившего игрока </returns>
         public int numberWhoIsWin()
         {
             if (countShipsFirsrGr == 0)
@@ -77,12 +96,14 @@
 
 
 
-
+        
         public void letsStartGame()
         {
             
             do 
             {
+                ///[ход первого игрока 
+
                 stepFirsGamer();
 
                 if (isGameOver()) break;
@@ -109,13 +130,14 @@
                 // результат выстрела 
                 resultshot = mapSecondGamer.GetResultShot(cell.Horizontal, cell.Vertical);
                 logger.WriteShot(cell, resultshot);
+                ///игрок получает ответ на свой ход и запоминает его 
                 firstGamer.receiveResultCurrentStep(resultshot);
 
                 if (resultshot == ResultShot.Kill)
                 {
                     countShipsSecondGr--;
-                    if (isGameOver()) break;
                 }
+                 
             } while (isCountinuesStep(resultshot));
         }
 
@@ -138,8 +160,8 @@
                 if (resultshot == ResultShot.Kill)
                 {
                     countShipsFirsrGr--;
-                    if (isGameOver()) break;
                 }
+                   
 
             } while (isCountinuesStep(resultshot));
 
