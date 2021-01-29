@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BattleShips
 {
+
+
+
     class Program
     {
 
@@ -17,19 +20,19 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("FoolVSClever игра номер {0} сыграна ", i+1);
-                g1 = new Gamer(new FoolStrategy(), new StandartMap());
-                g2 = new Gamer(new СleverStrategy(), new StandartMap());
-                game = new Game(g1, g2, "FoolVSClever.txt");
+                Console.WriteLine("CleverVsFool игра номер {0} сыграна ", i+1);
+                g1 = new Gamer(new СleverStrategy(), new StandartMap());
+                g2 = new Gamer(new FoolStrategy(), new StandartMap());
+                game = new Game(g1, g2, "CleverVsFool.txt");
                 game.letsStartGame();
                 if (game.numberWhoIsWin() == 1) countwinfirstgamer++;
                 if (game.numberWhoIsWin() == 2) countwinsecondgamer++;
             }
-            using (var sw = new StreamWriter("FoolVSClever.txt", true, Encoding.UTF8))
+            using (var sw = new StreamWriter("CleverVsFool.txt", true, Encoding.UTF8))
             {
-                sw.Write("первый(Fool) игрок  побед: {0}", countwinfirstgamer);
+                sw.Write("первый(Clever) игрок  побед: {0}", countwinfirstgamer);
                 sw.WriteLine();
-                sw.Write("второй(Clever) игрок  побед: {0}", countwinsecondgamer);
+                sw.Write("второй(Fool) игрок  побед: {0}", countwinsecondgamer);
             }
         }
         static void FoolVsFool()
@@ -87,9 +90,8 @@ namespace BattleShips
 
         static void Main(string[] args)
         {
-
-            СleverVsСlever();
-            FoolVsFool();
+            //СleverVsСlever();
+            //FoolVsFool();
             FoolVsClever();
 
         }

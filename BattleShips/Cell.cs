@@ -4,22 +4,6 @@ using System.Text;
 
 namespace BattleShips
 {
-
-
-    /// <summary>
-    /// ВИДЫ КЛЕТОК ИЛИ МОЖНО СКАЗАТЬ СОДЕРЖИМОЕ ЯЧЕЙКИ 
-    /// </summary>
-    enum CellsKind
-    { 
-
-        Water, // ВОДА
-        Ship, // КОРАБЛЬ 
-        AreaAroundShip, // ЗОНА ВОКРУГ КОРАБЛЯ , КУДА НЕЛЬЗЯ  ДРУГИЕ СТАВИТЬ КОРАБЛИ 
-        ShottedShip, //Подстреленные корабль 
-        ShottedCell  // Простреленная клетка 
-    }
-
-     
     /// <summary>
     /// класс КЛЕТКА игрового поля 
     /// содержит координаты ячейки и статус - содержимое .
@@ -27,36 +11,28 @@ namespace BattleShips
     class Cell
     {
         /// <summary>
-        /// содержимое ячейки 
-        /// </summary>
-        private CellsKind status;
-
-        
-        /// <summary>
         ///координаты клетки в декартовой системе координат 
         /// </summary>
         private СellCoordinates coordinate;
 
-        public CellsKind Status 
-        { 
-        get
-            {
-                return status;
-            }
-                
-        set
-            {
-                status = value;
-            }
+        /// <summary>
+        /// содержимое ячейки 
+        /// </summary>
+        public CellsKind Status { get; set; }
+
+        public Cell(int horizontal, int vertical)
+        {
+            coordinate = new СellCoordinates(horizontal, vertical);
+            this.Status = CellsKind.Water;
         }
 
-        public static bool operator ==(Cell c1, Cell c2)
-        {
-            return c1.coordinate == c2.coordinate;
-        }
         public static bool operator !=(Cell c1, Cell c2)
         {
             return c1.coordinate != c2.coordinate;
+        }
+        public static bool operator ==(Cell c1, Cell c2)
+        {
+            return c1.coordinate == c2.coordinate;
         }
         public override bool Equals(Object obj)
         {
@@ -75,17 +51,14 @@ namespace BattleShips
         {
             return (coordinate.Horizontal << 2) ^ coordinate.Vertical;
         }
-        public Cell(int horizontal, int vertical)
-        {
-            coordinate = new СellCoordinates(horizontal, vertical);
-           
-            status = CellsKind.Water;
-            
-            
-        }
-
+       
     }
 }
+           
+            
+            
+
+
 
         
 

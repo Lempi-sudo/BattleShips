@@ -6,23 +6,12 @@ namespace BattleShips
 {
     class СellCoordinates
     {
-        private int horizontal;
-        private int vertical;
-        public int Horizontal
+        public int Horizontal { get; }
+        public int Vertical { get; }
+        public СellCoordinates(int horizontal, int vertical)
         {
-            get
-            {
-                return horizontal;
-            }
-
-        }
-        public int Vertical
-        {
-            get
-            {
-                return vertical;
-            }
-
+            this.Horizontal = horizontal;
+            this.Vertical = vertical;
         }
         public static bool operator ==(СellCoordinates c1, СellCoordinates c2)
         {
@@ -34,12 +23,12 @@ namespace BattleShips
             if (c1.Horizontal != c2.Horizontal || c1.Vertical != c2.Vertical) return true;
             return false;
         }
-        public СellCoordinates(int h, int v)
-        {
-            horizontal = h;
-            vertical = v;
-        }
+    }
+}
+
+      
+
+      
+
         
 
-    };
-}
