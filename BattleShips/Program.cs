@@ -17,7 +17,7 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("FoolVSClever игра номер {0} сыграна ", i);
+                Console.WriteLine("FoolVSClever игра номер {0} сыграна ", i+1);
                 g1 = new Gamer(new FoolStrategy(), new StandartMap());
                 g2 = new Gamer(new СleverStrategy(), new StandartMap());
                 game = new Game(g1, g2, "FoolVSClever.txt");
@@ -41,7 +41,7 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("FoolVSFool игра номер {0} сыграна ", i);
+                Console.WriteLine("FoolVSFool игра номер {0} сыграна ", i+1);
                 g1 = new Gamer(new FoolStrategy(), new StandartMap());
                 g2 = new Gamer(new FoolStrategy(), new StandartMap());
                 game = new Game(g1, g2, "FoolVSFool.txt");
@@ -66,7 +66,7 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("СleverVsСlever игра номер {0} сыграна ", i);
+                Console.WriteLine("СleverVsСlever игра номер {0} сыграна ", i+1);
                 g1 = new Gamer(new СleverStrategy(), new StandartMap());
                 g2 = new Gamer(new СleverStrategy(), new StandartMap());
                 game = new Game(g1, g2, "СleverVsСlever.txt");
