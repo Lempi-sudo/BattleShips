@@ -5,12 +5,8 @@ using System.Text;
 
 namespace BattleShips
 {
-
-
-
     class Program
     {
-
         static void FoolVsClever()
         {
             AbstractGamer g1;
@@ -59,7 +55,6 @@ namespace BattleShips
                 sw.Write("второй(Fool) игрок  побед: {0}", countwinsecondgamer);
             }
         }
-
         static void СleverVsСlever()
         {
             AbstractGamer g1;
@@ -84,10 +79,6 @@ namespace BattleShips
                 sw.Write("второй(Сlever) игрок  побед: {0}", countwinsecondgamer);
             }
         }
-
-
-
-
         static void Main(string[] args)
         {
             СleverVsСlever();
@@ -97,6 +88,12 @@ namespace BattleShips
         }
     }
 }
+
+
+
+
+
+
 
 
            
