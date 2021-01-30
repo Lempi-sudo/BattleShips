@@ -11,7 +11,7 @@
         private IMap mapFirstGamer;
         private IMap mapSecondGamer;
 
-        private SuperLogger logger;
+        private Logger logger;
 
         public Game(AbstractGamer firstgamer, AbstractGamer secondgamer,string filename)
         {
@@ -24,7 +24,7 @@
             this.countShipsFirsrGr = mapFirstGamer.CountShipOnMap();
             this.countShipsSecondGr = mapSecondGamer.CountShipOnMap();
 
-            this.logger = new SuperLogger(filename);
+            this.logger = new Logger(filename);
         
 
            
