@@ -90,8 +90,8 @@ namespace BattleShips
 
         static void Main(string[] args)
         {
-            //СleverVsСlever();
-            //FoolVsFool();
+            СleverVsСlever();
+            FoolVsFool();
             FoolVsClever();
 
         }
