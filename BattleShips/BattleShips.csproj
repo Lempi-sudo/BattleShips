@@ -5,10 +5,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Update="C:\Users\AndreyMashina\.nuget\packages\nlog.config\4.7.7\contentFiles\any\any\NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+
 
 </Project>
