@@ -4,11 +4,14 @@ using System.Text;
 
 namespace BattleShips
 {
+    /// <summary>
+    /// Результат выстрела 
+    /// </summary>
     enum ResultShot
     {
-        Miss,
-        Damage,
-        Kill,
+        Miss, //Промазал
+        Damage,//Попал
+        Kill,//Убил
     }
 }
 

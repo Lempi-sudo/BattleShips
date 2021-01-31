@@ -27,7 +27,7 @@ namespace BattleShips
         {
             get
             {
-                return sizeship;
+                return this.sizeship;
             }
         }
 
@@ -36,7 +36,6 @@ namespace BattleShips
             this.sizeship = shipcoordinates.Count;
             this.shipcoordinates = shipcoordinates;
         }
-
 
         /// <summary>
         /// метод вычеркивает клетку с данными коорданатами из списка клеток корабля 
@@ -70,13 +69,18 @@ namespace BattleShips
             return ResultShot.Miss;
         }
 
+    }
+}
+
 
                 
 
        
        
-    }
-}
+
+
+
+
        
       
             

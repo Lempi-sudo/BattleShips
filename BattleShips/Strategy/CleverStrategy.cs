@@ -4,6 +4,18 @@ using System.Text;
 
 namespace BattleShips
 {
+    /// <summary>
+    /// Реализация интерфейса IStrategy
+    /// при попадании по кораблю флаг flagContinueShotOnShip принимает значение true и остается таковым 
+    /// пока корабль не убит 
+    /// при первом попадании формируется список соседних клеток относительно первой подбитой CellsForKillsShip
+    /// (если такие есть среди доступных availableCells )
+    /// количество клеток зависит от максимального размера корабля maxlenghtship-1
+    /// ЕСЛИ после этого произошел промах отбрасываются все клетки этой сторона 
+    /// ECЛИ случилось попадание то остается только одна плоскость(горизонталь или вертикаль)
+    /// выстрелы продолжаются по вершинам вокруг корабля до тех пор пока корабль не будет убит 
+    /// ЕСЛИ корабль убит то клетка для следующего выстрела выбирается из доступных вершин availableCells случайным образом 
+    /// </summary>
     class СleverStrategy : IStrategy
     {
         public СleverStrategy(int mapsize=10 , int maxlenghtship=4)
@@ -21,12 +33,14 @@ namespace BattleShips
                 }
             }
         }
+
         private СellCoordinates randomCell()
         {
             Random rand = new Random();
             int index= rand.Next(0, availableCells.Count);
             return availableCells[index];
         }
+
         private void deleteAvailableCell(СellCoordinates cell)
         {
             for (int i = 0; i < availableCells.Count; i++)
@@ -38,11 +52,13 @@ namespace BattleShips
 
             }
         }
+
         private void setFlagValue(ResultShot resultPastStep)
         {
             if (resultPastStep == ResultShot.Damage) flagContinueShotOnShip = true;
             if(resultPastStep == ResultShot.Kill) flagContinueShotOnShip = false;
         }
+
         private bool isCellAvaivalbel(int h ,int v)
         {
             СellCoordinates cell = new СellCoordinates(h, v);
@@ -54,6 +70,7 @@ namespace BattleShips
             return false;
         
         }
+
         private void addAvailavleCellsAroundFirstCell()
         {
             int h = this.hitShipCells[0].Horizontal;
@@ -63,7 +80,7 @@ namespace BattleShips
             bool right = true;
             bool left = true;
          
-            for (int i = 1; i < this.maxLenghtShip; i++)//добавить проверку что есть в списке дотупных вершин
+            for (int i = 1; i < this.maxLenghtShip; i++)
             {
                 if (down && isCellAvaivalbel(h + i, v)) CellsForKillsShip.Add(new СellCoordinates(h + i, v));
                 else down = false;
@@ -75,6 +92,7 @@ namespace BattleShips
                 else right = false;
             }
         }
+
         private void deleteDirectionAttack() 
         {
             int deltaH = this.lastSelectedCell.Horizontal - this.hitShipCells[0].Horizontal;
@@ -126,6 +144,7 @@ namespace BattleShips
             CellsForKillsShip.Clear();
             CellsForKillsShip = newCellsForKillsShip;
         }
+
         private void chooseHorizontalOrVertical()
         {
             СellCoordinates cell1 = hitShipCells[0];
@@ -160,6 +179,7 @@ namespace BattleShips
             CellsForKillsShip.Clear();
             CellsForKillsShip = newCellsForKillsShip;
         }
+
         private void CreateCellsForKillsShip(ResultShot resshot)
         {
             if (resshot == ResultShot.Damage)
@@ -178,10 +198,12 @@ namespace BattleShips
                 deleteDirectionAttack();
             }
         }
+
         private void addCellInHitShipCells()
         {
             hitShipCells.Add(this.lastSelectedCell);
         }
+
         private СellCoordinates PopFront(List<СellCoordinates> list)
         {
             СellCoordinates cell = list[0];
@@ -192,7 +214,7 @@ namespace BattleShips
         public СellCoordinates PickCell(ResultShot resultPastStep)
         {
             setFlagValue(resultPastStep);
-            if (!flagContinueShotOnShip)
+            if (!flagContinueShotOnShip) //если корабль НЕ ПОДБИТ  или  УБИТ 
             {
                 if (resultPastStep == ResultShot.Kill)
                 {
@@ -204,13 +226,13 @@ namespace BattleShips
                 this.lastSelectedCell = pickcell;
                 return pickcell;
             }
-            else
+            else //если корабль ПОДБИТ 
             {
-                if (resultPastStep == ResultShot.Damage)
+                if (resultPastStep == ResultShot.Damage)//если прошлый ход был попадание добавить данную вершину в список addCellInHitShipCells
                 {
                     addCellInHitShipCells();
                 }
-                CreateCellsForKillsShip(resultPastStep);
+                CreateCellsForKillsShip(resultPastStep);//данный метод формирует список вершин в которых может быть корабль 
 
                 СellCoordinates pickcell = PopFront(CellsForKillsShip);
                 this.lastSelectedCell = pickcell;

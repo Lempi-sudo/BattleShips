@@ -6,7 +6,7 @@ namespace BattleShips
 {
     /// <summary>
     /// класс КЛЕТКА игрового поля 
-    /// содержит координаты ячейки и статус - содержимое .
+    /// содержит координаты ячейки и статус - содержимое клетки .
     /// </summary>
     class Cell
     {
@@ -36,7 +36,7 @@ namespace BattleShips
         }
         public override bool Equals(Object obj)
         {
-            //Check for null and compare run-time types.
+            
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
             {
                 return false;

@@ -4,6 +4,10 @@ using System.Text;
 
 namespace BattleShips
 {
+    /// <summary>
+    /// Класс координаты клетки 
+    /// по горизонтали и вертикали 
+    /// </summary>
     class СellCoordinates
     {
         public int Horizontal { get; }

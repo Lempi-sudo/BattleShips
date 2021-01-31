@@ -5,7 +5,7 @@ using System.Text;
 namespace BattleShips
 {
     /// <summary>
-    /// ВИДЫ КЛЕТОК ИЛИ МОЖНО СКАЗАТЬ СОДЕРЖИМОЕ ЯЧЕЙКИ 
+    /// ВИДЫ КЛЕТОК 
     /// </summary>
     enum CellsKind
     {
