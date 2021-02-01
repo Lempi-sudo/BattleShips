@@ -92,6 +92,8 @@ namespace BattleShips
             return rand.Next(0, maxindex);
         }
 
+
+        //изменить метод чтобы сначала создавался центр пото уже добавлялся к нему с=соседи и формировали 
         private Ship CreateSomeDeckShipOnMap(int sizeship, СellCoordinates centership)
         {
 
@@ -105,13 +107,14 @@ namespace BattleShips
             List<СellCoordinates> RightNeighborsCells = NeighborsCells(centership, sizeship, 0, 1);
             List<СellCoordinates> LeftNeighborsCells = NeighborsCells(centership, sizeship, -0, -1);
 
-            // если соседние вершины по горизонтали или по вертикали > sizeship то в эту сторону можно ставить корабль
+            //необходимо знать количество соседних вершин по горизонтали и вертикали 
             int verticalNeighbors = LenghtNeighbors(UpNeighborsCells, DownNeighborsCells);
             int horizontalNeighbors = LenghtNeighbors(RightNeighborsCells, LeftNeighborsCells);
             Random rand = new Random();
-            //если ставить корабль можно и по вертикали и по горизонтали нужно случайным образом  выбрать сторону 
+            // если соседние вершины (по горизонтали>sizeship-1) или (по вертикали > sizeship-1) то в обе плоскости можно ставить корабль
             if (verticalNeighbors >= sizeship - 1 && horizontalNeighbors >= sizeship - 1)
             {
+                //если ставить корабль можно и по вертикали и по горизонтали нужно случайным образом выбрать сторону 
                 int key = rand.Next(0, 1);
                 switch (key)
                 {
@@ -136,6 +139,9 @@ namespace BattleShips
             {
                 AddNeighborsCellsToCenter(sizeship, coordinatesShip, RightNeighborsCells, LeftNeighborsCells);
             }
+            //ВАЖНАЯ ЗАМЕТКА:ситуация при которой нельзя поставить корабль не в одну из сторон невозможна 
+            //               при некотором другом наборе кораблей или другой формы или размеров ,такая ситуация будет возможна.
+            //               В таком случае данный способ расстонавки кораблей на карте не подойтёт.
             Ship ship = new Ship(coordinatesShip);
             return ship;
         }
@@ -158,7 +164,7 @@ namespace BattleShips
         private void DrawСellsAroundShip(Ship ship)
         {
             // смещение относительно центра
-            int up = -1;
+            int up = -1; 
             int down = 1;
             int right = 1;
             int left = -1;
@@ -186,7 +192,19 @@ namespace BattleShips
                 cellsField[ship.ShipCoordinates[i].Horizontal, ship.ShipCoordinates[i].Vertical].Status = CellsKind.Ship;
             }
         }
-        
+
+        /// <summary>
+        /// Данный метод находит все доступные соседние вершины отоносительно центральной centership с учетом сдвига shifthorizontally  shiftvertical
+        /// например, если смещение по вертикали вправо (shiftvertical > 0 )то ищем все вершины правее относительно  центральной 
+        ///           если смещение по вертикали влево (shiftvertical < 0 )то ищем все вершины левее относительно  центральной 
+        /// необходимое количество соседних вершин зависит от размера корабля sizeship-1.
+        /// если встретилась вершина на которую нельзя ставить корабль (например там уже есть корабль) то дальше искать бессмысленно. следует прекратить поиск
+        /// </summary>
+        /// <param name="centership">координаты центра коробля </param>
+        /// <param name="sizeship">размер корабля</param>
+        /// <param name="shifthorizontally">смещение по горизонтали </param>
+        /// <param name="shiftvertical">смещение по вертикали </param>
+        /// <returns>список соседних вершин на которые можно поставить корабль </returns>
         private List<СellCoordinates> NeighborsCells(СellCoordinates centership, int sizeship, int shifthorizontally, int shiftvertical)
         {
             List<СellCoordinates> neighborsCells = new List<СellCoordinates>();
@@ -210,34 +228,40 @@ namespace BattleShips
             }
             return neighborsCells;
         }
- 
-
+        
         private int LenghtNeighbors(List<СellCoordinates> onehand, List<СellCoordinates> otherhand)
         {
             return onehand.Count + otherhand.Count;
         }
 
-        private void AddNeighborsCellsToCenter(int sizeship, List<СellCoordinates> coordinatesShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
+        /// <summary>
+        /// ПЛОХОЙ МЕТОД ИЗМЕНИТЬ
+        /// </summary>
+        /// <param name="sizeship">размер корабля </param>
+        /// <param name="coordinatesShip">координат центра коробля </param>
+        /// <param name="oneHandNeighborsCells"></param>
+        /// <param name="otherHandNeighborsCells"></param>
+        private void AddNeighborsCellsToCenter(int sizeship, List<СellCoordinates> coordinatesCenterShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
         {
             while (true)
             {
-                if (coordinatesShip.Count == sizeship)
+                if (coordinatesCenterShip.Count == sizeship)
                 {
                     break;
                 }
 
                 if (oneHandNeighborsCells.Count != 0)
                 {
-                    coordinatesShip.Add(oneHandNeighborsCells[0]);
+                    coordinatesCenterShip.Add(oneHandNeighborsCells[0]);
                     oneHandNeighborsCells.RemoveAt(0);
                 }
-                if (coordinatesShip.Count == sizeship)
+                if (coordinatesCenterShip.Count == sizeship)
                 {
                     break;
                 }
                 if (otherHandNeighborsCells.Count != 0)
                 {
-                    coordinatesShip.Add(otherHandNeighborsCells[0]);
+                    coordinatesCenterShip.Add(otherHandNeighborsCells[0]);
                     otherHandNeighborsCells.RemoveAt(0);
                 }
             }
@@ -284,6 +308,9 @@ namespace BattleShips
 
     }
 }
+
+
+
 
 
 
