@@ -18,6 +18,44 @@ namespace BattleShips
     /// </summary>
     class СleverStrategy : IStrategy
     {
+
+        /// <summary>
+        /// вершина в которую стрелили в прошлом ходу 
+        /// если попали то от нее формируется список вершин где возможно 
+        /// есть корабль  CellsForKillsShip
+        /// </summary>
+        private СellCoordinates lastSelectedCell;
+
+        /// <summary>
+        /// флаг 
+        /// TRUE -КОРАБЛЬ подбит продолжаем по нему стрелять 
+        /// FALSE-КОРАБЛЬ не подбит , выбираем случайную вершину 
+        /// </summary>
+        bool flagContinueShotOnShip = false;
+
+        /// <summary>
+        /// клетки в которые еще не стреляли 
+        /// </summary>
+        private List<СellCoordinates> availableCells;
+
+        /// <summary>
+        /// максимальное количество палуб у корабля на карте
+        /// </summary>
+        private int maxLenghtShip;
+
+        /// <summary>
+        /// cписок клеток соседки с клекой в которой есть корабль
+        /// формируется после попадания и изменяется в зависимости от попаданий/промахов  
+        /// </summary>
+        private List<СellCoordinates> CellsForKillsShip;
+
+        /// <summary>
+        /// список  клеток с подбитым кораблем . 
+        /// список содержит клетки одного корабля 
+        /// после убийства корабля список очищается 
+        /// </summary>
+        private List<СellCoordinates> hitShipCells;
+
         public СleverStrategy(int mapsize=10 , int maxlenghtship=4)
         {
             this.maxLenghtShip = maxlenghtship;
@@ -31,6 +69,37 @@ namespace BattleShips
                 {
                     this.availableCells.Add(new СellCoordinates(i, j));
                 }
+            }
+        }
+
+        public СellCoordinates PickCell(ResultShot resultPastStep)
+        {
+            setFlagValue(resultPastStep);
+            if (!flagContinueShotOnShip) //если корабль НЕ ПОДБИТ  или  УБИТ , то выбираем случайную клетку из доступных
+            {
+                if (resultPastStep == ResultShot.Kill)
+                {
+                    hitShipCells.Clear();
+                    CellsForKillsShip.Clear();
+                }
+                СellCoordinates pickcell = randomCell();
+                deleteAvailableCell(pickcell);
+                this.lastSelectedCell = pickcell;
+                return pickcell;
+            }
+            else //если корабль ПОДБИТ 
+            {
+                if (resultPastStep == ResultShot.Damage)//если прошлый ход был попадание добавить данную вершину в список addCellInHitShipCells
+                {
+                    addCellInHitShipCells();
+                }
+                CreateCellsForKillsShip(resultPastStep);//данный метод формирует список вершин в которых может быть корабль 
+
+                СellCoordinates pickcell = PopFront(CellsForKillsShip);
+                this.lastSelectedCell = pickcell;
+                deleteAvailableCell(pickcell);
+                return this.lastSelectedCell;
+
             }
         }
 
@@ -210,82 +279,17 @@ namespace BattleShips
             list.RemoveAt(0);
             return cell;
         }
-
-        public СellCoordinates PickCell(ResultShot resultPastStep)
-        {
-            setFlagValue(resultPastStep);
-            if (!flagContinueShotOnShip) //если корабль НЕ ПОДБИТ  или  УБИТ 
-            {
-                if (resultPastStep == ResultShot.Kill)
-                {
-                    hitShipCells.Clear();
-                    CellsForKillsShip.Clear();
-                }
-                СellCoordinates pickcell = randomCell();
-                deleteAvailableCell(pickcell);
-                this.lastSelectedCell = pickcell;
-                return pickcell;
-            }
-            else //если корабль ПОДБИТ 
-            {
-                if (resultPastStep == ResultShot.Damage)//если прошлый ход был попадание добавить данную вершину в список addCellInHitShipCells
-                {
-                    addCellInHitShipCells();
-                }
-                CreateCellsForKillsShip(resultPastStep);//данный метод формирует список вершин в которых может быть корабль 
-
-                СellCoordinates pickcell = PopFront(CellsForKillsShip);
-                this.lastSelectedCell = pickcell;
-                deleteAvailableCell(pickcell);
-                return this.lastSelectedCell;
-
-            }
-        }
-
-
-        /// <summary>
-        /// вершина в которую стрелили в прошлом ходу 
-        /// если попали то от нее формируется список вершин где возможно 
-        /// есть корабль  CellsForKillsShip
-        /// </summary>
-        private СellCoordinates lastSelectedCell;
-
-        /// <summary>
-        /// флаг 
-        /// TRUE -КОРАБЛЬ подбит продолжаем по нему стрелять 
-        /// FALSE-КОРАБЛЬ не подбит , выбираем случайную вершину 
-        /// </summary>
-        bool flagContinueShotOnShip = false; 
-
-
-        /// <summary>
-        /// клетки в которые еще не стреляли 
-        /// </summary>
-        private List<СellCoordinates> availableCells;
-
-        /// <summary>
-        /// максимальное количество палуб у корабля на карте
-        /// </summary>
-        private int maxLenghtShip;
-
-        /// <summary>
-        /// cписок клеток соседки с клекой в которой есть корабль
-        /// формируется после попадания и изменяется в зависимости от попаданий/промахов  
-        /// </summary>
-        private List<СellCoordinates> CellsForKillsShip;
-
-
-
-        /// <summary>
-        /// список  клеток с подбитым кораблем . 
-        /// список содержит клетки одного корабля 
-        /// после убийства корабля список очищается 
-        /// </summary>
-        private List<СellCoordinates> hitShipCells;
-
-
     }
 }
+
+       
+
+
+
+
+
+
+
        
         
 

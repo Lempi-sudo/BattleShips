@@ -16,12 +16,12 @@ namespace BattleShips
     /// </summary>
     class StandartMap : IMap
     {
+
         public StandartMap()
         {
             cellsField = new Cell[fieldSize, fieldSize];
             AllShips = new FleetShips();
         }
-
 
         /// <summary>
         /// генерация карты заполнение водой и расстановка кораблей 
@@ -31,6 +31,17 @@ namespace BattleShips
             FillWater();//сначала заполняем все клетки водой 
             int[] allSizeShips = new int[] { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };//Массив содержит размеры кораблей на карте 
             CreateShipsOnMap(allSizeShips);//расстановка кораблей на карте с заданыыми размерами кораблей. 
+        }
+
+        private void FillWater()
+        {
+            for (int i = 0; i < fieldSize; i++)
+            {
+                for (int j = 0; j < fieldSize; j++)
+                {
+                    cellsField[i, j] = new Cell(i, j);
+                }
+            }
         }
 
         private void CreateShipsOnMap(int[] arraysizeships)
@@ -59,17 +70,6 @@ namespace BattleShips
             }
         }
 
-        private void FillWater()
-        {
-            for (int i = 0; i < fieldSize; i++)
-            {
-                for (int j = 0; j < fieldSize; j++)
-                {
-                    cellsField[i, j] = new Cell(i, j);
-                }
-            }
-        }
-
         private List<СellCoordinates> AvailableСells()
         {
             List<СellCoordinates> allCells = new List<СellCoordinates>();
@@ -92,16 +92,12 @@ namespace BattleShips
             return rand.Next(0, maxindex);
         }
 
-
-        //изменить метод чтобы сначала создавался центр пото уже добавлялся к нему с=соседи и формировали 
         private Ship CreateSomeDeckShipOnMap(int sizeship, СellCoordinates centership)
         {
-
-            //создаем список координат корабля и сразу добавляем первую 
+            //создаем список координат корабля 
             List<СellCoordinates> coordinatesShip = new List<СellCoordinates>();
-            coordinatesShip.Add(centership);
 
-            //находим все доступные соседние вершины с учетом размера корабля 
+            //находим все доступные соседние вершины с учетом размера корабля-sizeship , относительно центральной клетки -centership.
             List<СellCoordinates> UpNeighborsCells = NeighborsCells(centership, sizeship, -1, 0);
             List<СellCoordinates> DownNeighborsCells = NeighborsCells(centership, sizeship, 1, 0);
             List<СellCoordinates> RightNeighborsCells = NeighborsCells(centership, sizeship, 0, 1);
@@ -119,11 +115,11 @@ namespace BattleShips
                 switch (key)
                 {
                     case 0: //корабль распологается по горизонтали 
-                        AddNeighborsCellsToCenter(sizeship, coordinatesShip, RightNeighborsCells, LeftNeighborsCells);
+                        coordinatesShip=CreateShipFromCenterAndNeighbors(sizeship, centership, RightNeighborsCells, LeftNeighborsCells);
 
                         break;
                     case 1://корабль распологается по вертикали  
-                        AddNeighborsCellsToCenter(sizeship, coordinatesShip, UpNeighborsCells, DownNeighborsCells);
+                        coordinatesShip=CreateShipFromCenterAndNeighbors(sizeship, centership, UpNeighborsCells, DownNeighborsCells);
 
                         break;
                     default:
@@ -132,12 +128,12 @@ namespace BattleShips
             }
             else if (verticalNeighbors >= sizeship - 1) //ставить корабль можно только по вертикали 
             {
-                AddNeighborsCellsToCenter(sizeship, coordinatesShip, UpNeighborsCells, DownNeighborsCells);
+                coordinatesShip=CreateShipFromCenterAndNeighbors(sizeship, centership, UpNeighborsCells, DownNeighborsCells);
 
             }
             else if (horizontalNeighbors >= sizeship - 1)//ставить корабль можно только по горизонтали  
             {
-                AddNeighborsCellsToCenter(sizeship, coordinatesShip, RightNeighborsCells, LeftNeighborsCells);
+                coordinatesShip=CreateShipFromCenterAndNeighbors(sizeship, centership, RightNeighborsCells, LeftNeighborsCells);
             }
             //ВАЖНАЯ ЗАМЕТКА:ситуация при которой нельзя поставить корабль не в одну из сторон невозможна 
             //               при некотором другом наборе кораблей или другой формы или размеров ,такая ситуация будет возможна.
@@ -147,6 +143,47 @@ namespace BattleShips
         }
 
 
+
+
+
+
+        /// <summary>
+        /// Данный метод формирует координаты корабля из центральной клетки и соседних относительно центральной.
+        /// </summary>
+        /// <param name="sizeship">размер корабля </param>
+        /// <param name="coordinatesCenterShip">координаты центра корабля. К этой клетке добавляются соседние вершины </param>
+        /// <param name="oneHandNeighborsCells">Cоседние вершины относительно центра с первой стороны . Например ПО ГОРИЗОНТАЛИ  справа </param>
+        /// <param name="otherHandNeighborsCells">Cоседние вершины относительно центра со второй стороны. Например ПО ГОРИЗОНТАЛИ  слева   </param>
+        /// <returns>список координат корабля </returns>
+        private List<СellCoordinates>CreateShipFromCenterAndNeighbors(int sizeship, СellCoordinates coordinatesCenterShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
+        {
+            List<СellCoordinates> coordinatesShip = new List<СellCoordinates>();
+            coordinatesShip.Add(coordinatesCenterShip);
+
+            while (true)
+            {
+                if (coordinatesShip.Count == sizeship)
+                {
+                    break;
+                }
+
+                if (oneHandNeighborsCells.Count != 0)
+                {
+                    coordinatesShip.Add(oneHandNeighborsCells[0]);
+                    oneHandNeighborsCells.RemoveAt(0);
+                }
+                if (coordinatesShip.Count == sizeship)
+                {
+                    break;
+                }
+                if (otherHandNeighborsCells.Count != 0)
+                {
+                    coordinatesShip.Add(otherHandNeighborsCells[0]);
+                    otherHandNeighborsCells.RemoveAt(0);
+                }
+            }
+            return coordinatesShip;
+        }
 
         private void ShiftCellAroundShip(СellCoordinates center, int shifthorizontally, int shiftvertical)
         {
@@ -234,39 +271,6 @@ namespace BattleShips
             return onehand.Count + otherhand.Count;
         }
 
-        /// <summary>
-        /// ПЛОХОЙ МЕТОД ИЗМЕНИТЬ
-        /// </summary>
-        /// <param name="sizeship">размер корабля </param>
-        /// <param name="coordinatesShip">координат центра коробля </param>
-        /// <param name="oneHandNeighborsCells"></param>
-        /// <param name="otherHandNeighborsCells"></param>
-        private void AddNeighborsCellsToCenter(int sizeship, List<СellCoordinates> coordinatesCenterShip, List<СellCoordinates> oneHandNeighborsCells, List<СellCoordinates> otherHandNeighborsCells)
-        {
-            while (true)
-            {
-                if (coordinatesCenterShip.Count == sizeship)
-                {
-                    break;
-                }
-
-                if (oneHandNeighborsCells.Count != 0)
-                {
-                    coordinatesCenterShip.Add(oneHandNeighborsCells[0]);
-                    oneHandNeighborsCells.RemoveAt(0);
-                }
-                if (coordinatesCenterShip.Count == sizeship)
-                {
-                    break;
-                }
-                if (otherHandNeighborsCells.Count != 0)
-                {
-                    coordinatesCenterShip.Add(otherHandNeighborsCells[0]);
-                    otherHandNeighborsCells.RemoveAt(0);
-                }
-            }
-        }
-
         public ResultShot GetResultShot(int horizontal, int vertical)
         {
             if (cellsField[horizontal, vertical].Status != CellsKind.Ship)
@@ -309,50 +313,7 @@ namespace BattleShips
     }
 }
 
-
-
-
-
-
         
-
-        
-
-
-
-
-
-     
-
-
-
-            
-
-           
-                
-
-
-
-
-
-
-        
-
-        
-
-
-
-
-
-
-       
-
-
-       
-
-        
-
-         
 
 
 
@@ -372,15 +333,63 @@ namespace BattleShips
 
 
 
-            
 
 
 
-       
 
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

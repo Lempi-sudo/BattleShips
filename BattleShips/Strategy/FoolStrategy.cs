@@ -38,10 +38,11 @@ namespace BattleShips
             }
         }
 
+
         /// <summary>
-        /// метод выбора клеток 
+        /// метод выбора клеток. возвращает клетку из  начала очереди и удаляет её .
         /// </summary>
-        /// <returns> возвращает очередную случайную клетку </returns>
+        /// <returns> КООРДИНАТЫ КЛЕТКИ </returns>
         public СellCoordinates PickCell(ResultShot resultcurrentStep)
         { 
             return randomСells.Dequeue();

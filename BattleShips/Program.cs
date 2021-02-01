@@ -79,6 +79,7 @@ namespace BattleShips
                 sw.Write("второй(Сlever) игрок  побед: {0}", countwinsecondgamer);
             }
         }
+
         static void Main(string[] args)
         {
             СleverVsСlever();
