@@ -15,8 +15,8 @@ namespace BattleShips
         /// </summary>
         private string fileName;
         /// <summary>
-        /// Во время партии в данную переменную происходит запись ходов и результатов поавданий 
-        /// а затем по окончанию партии из этой переменной данные записываются в файл
+        /// Во время партии в поле text происходит запись ходов  и результатов попаданий метод WriteShot
+        /// а затем по окончанию партии из text данные записываются в файл WriteInFile()
         /// </summary>
         private string text;
         
@@ -26,7 +26,7 @@ namespace BattleShips
         }
 
         /// <summary>
-        /// метод записывает в файл ход игрока 
+        /// метод записывает в поле text ход игрока 
         /// </summary>
         /// <param name="cell">координаты клетки в которую стреляли</param>
         /// <param name="resultshot">результат выстрела </param>
@@ -53,15 +53,12 @@ namespace BattleShips
             text += "\r\n";
         }
 
-        
         public void WriteGamer(string strnamegamer)
         {
             text += strnamegamer += " Move:";
             text += "\r\n";
         }
             
-
-
         public void WriteWinner(string strnamegamer)
         {
             text += strnamegamer += " is winner";
@@ -80,9 +77,12 @@ namespace BattleShips
             
             }
         }
-           
-         
 
     }
 }
+        
+
+
+           
+         
 

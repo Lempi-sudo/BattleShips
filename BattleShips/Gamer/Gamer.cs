@@ -4,7 +4,10 @@ using System.Text;
 
 namespace BattleShips
 {
-    class Gamer:AbstractGamer
+    /// <summary>
+    /// Класс Gamer реализует все методы класса AbstractGamer
+    /// </summary>
+    class Gamer :AbstractGamer
     {
         public Gamer(IStrategy strategykind, IMap mapkind) : base(strategykind, mapkind) { }
         public override СellCoordinates madeShot()

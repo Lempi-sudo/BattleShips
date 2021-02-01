@@ -1,5 +1,9 @@
 ﻿namespace BattleShips
 {
+    /// <summary>
+    /// Данный класс реализует логику игры между двумя игроками.
+    /// Можно сравнить данный класс с независымым судьёй, который следить за поряком проведения игры, чтобы никто не нарушал правила.  
+    /// </summary>
     class Game
     {
         private AbstractGamer firstGamer;
@@ -25,11 +29,8 @@
             this.countShipsSecondGr = mapSecondGamer.CountShipOnMap();
 
             this.logger = new Logger(filename);
-        
-
-           
         }
-
+        
         /// <summary>
         /// проверка на конец игры 
         /// </summary>
@@ -50,18 +51,17 @@
         /// </returns>
         private bool isCountinuesStep(ResultShot resultshot)
         {
-             
             if (( resultshot == ResultShot.Kill || resultshot == ResultShot.Damage ) && !isGameOver()) 
             {
                 return true;
             }
             return false;
         }
-            
+             
         /// <summary>
         /// метод для записи в файл победителя в партии
         /// </summary>
-        /// <returns></returns>
+        /// <returns>возвращает имя игрока победившего в партии</returns>
         private string stringWhoIsWin()
         {
             if(countShipsFirsrGr==0)
@@ -74,7 +74,7 @@
             }
             return "";
         }
-
+           
         /// <summary>
         /// метод для подсчета количества побед в турнире 
         /// </summary>
@@ -92,30 +92,18 @@
             return 0;
         }
 
-
-
-
-
-        
         public void letsStartGame()
         {
-            
-            do 
+            //главный цикл игры. условие выхода из цикла - конец игры, метод isGameOver() должен вернуть true
+            do
             {
-                ///[ход первого игрока 
-
                 stepFirsGamer();
-
                 if (isGameOver()) break;
-
                 stepSecondGamer();
-
             } while (!isGameOver());
             logger.WriteWinner(stringWhoIsWin());
             logger.WriteInFile();
-
         }
-
 
         private void stepFirsGamer()
         {
@@ -133,18 +121,13 @@
                 ///игрок получает ответ на свой ход и запоминает его 
                 firstGamer.receiveResultCurrentStep(resultshot);
 
-                if (resultshot == ResultShot.Kill)
+                if (resultshot == ResultShot.Kill) // если результат выстрела убитый корабль то счетчик кораблей противника уменьшается на единицу 
                 {
                     countShipsSecondGr--;
                 }
                  
-            } while (isCountinuesStep(resultshot));
+            } while (isCountinuesStep(resultshot));//проверка на продолжение хода игроком
         }
-
-            
-              
-               
-
 
         private void stepSecondGamer()
         {
@@ -161,23 +144,46 @@
                 {
                     countShipsFirsrGr--;
                 }
-                   
-
             } while (isCountinuesStep(resultshot));
-
         }
 
     }
-
-                        
-
-
-                        
-
-            
-            
-            
 }
+                
+
+
+
+
+                   
+
+
+
+            
+              
+               
+
+
+
+                        
+
+
+                        
+
+            
+            
+            
+
+            
+
+
+
+
+
+        
+
+            
+
+
 
             
            
