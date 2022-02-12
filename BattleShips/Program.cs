@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+
+
 namespace BattleShips
 {
     class Program
@@ -16,7 +18,8 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("CleverVsFool игра номер {0} сыграна ", i + 1);
+                if (i % 25 == 0) Console.WriteLine("CleverVsFool игра номер {0} сыграна ", i + 1);
+
                 g1 = new Gamer(new СleverStrategy(), new StandartMap());
                 g2 = new Gamer(new FoolStrategy(), new StandartMap());
                 game = new Game(g1, g2, "CleverVsFool.txt");
@@ -40,7 +43,7 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("FoolVSFool игра номер {0} сыграна ", i+1);
+                if (i % 50 == 0) Console.WriteLine("FoolVSFool игра номер {0} сыграна ", i + 1);
                 g1 = new Gamer(new FoolStrategy(), new StandartMap());
                 g2 = new Gamer(new FoolStrategy(), new StandartMap());
                 game = new Game(g1, g2, "FoolVSFool.txt");
@@ -64,7 +67,7 @@ namespace BattleShips
             int countwinsecondgamer = 0;
             for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("СleverVsСlever игра номер {0} сыграна ", i+1);
+                if (i % 100 == 0) Console.WriteLine("СleverVsСlever игра номер {0} сыграна ", i + 1);
                 g1 = new Gamer(new СleverStrategy(), new StandartMap());
                 g2 = new Gamer(new СleverStrategy(), new StandartMap());
                 game = new Game(g1, g2, "СleverVsСlever.txt");
@@ -97,7 +100,7 @@ namespace BattleShips
 
 
 
-           
+
 
 
 
